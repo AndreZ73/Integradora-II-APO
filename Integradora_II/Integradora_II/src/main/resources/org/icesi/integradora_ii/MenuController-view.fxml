@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.StackPane?> <?import javafx.scene.text.Font?>
+
+<StackPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.icesi.integradora_ii.MenuController">
+    <children>
+        <Button mnemonicParsing="false" onAction="#EnterGame" prefHeight="67.0" prefWidth="115.0" text="PLAY" textAlignment="CENTER">
+            <font>
+                <Font name="Impact" size="31.0" />
+            </font>
+        </Button>
+    </children>
+</StackPane>
