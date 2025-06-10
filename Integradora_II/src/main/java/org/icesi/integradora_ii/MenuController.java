@@ -1,10 +1,12 @@
 package org.icesi.integradora_ii;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 import javafx.stage.Screen;
 import javafx.geometry.Rectangle2D;
@@ -18,6 +20,25 @@ public class MenuController {
     private Scene scene;
     private Parent root;
 
+    @FXML
+    private Button muteButton;
+
+    private static boolean isMuted = false;
+
+    @FXML
+    private void toggleMute() {
+        isMuted = !isMuted;
+
+        if (HelloApplication.getMediaPlayer() != null) {
+            HelloApplication.getMediaPlayer().setMute(isMuted);
+        }
+
+        muteButton.setText(isMuted ? "Activar" : "Silenciar");
+    }
+
+    public static boolean isMuted() {
+        return isMuted;
+    }
 
     public void EnterGame(ActionEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("GameController-view.fxml"));
@@ -40,5 +61,9 @@ public class MenuController {
             }
         });
         stage.show();
+    }
+
+    public static void setMuted(boolean muted) {
+        isMuted = muted;
     }
 }

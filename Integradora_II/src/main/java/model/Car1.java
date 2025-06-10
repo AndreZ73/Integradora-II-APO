@@ -35,10 +35,10 @@ public class Car1 extends Thread{
         this.state = 0;
 
         north = new ArrayList<>();
-        for (int i = 0; i < 11; i++) {
+        //for (int i = 0; i < 11; i++) {
             Image image = new  Image(getClass().getResourceAsStream("/Car1/North/Red_COUPE_CLEAN_NORTH_000.png"));
             north.add(image);
-        }
+        //}
     }
 
 

@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
@@ -35,6 +36,22 @@ public class GameController implements Initializable {
     private final double SCALE_STEP = 0.1;
     private double MIN_SCALE = 0.5;
 
+    @FXML
+    private Button muteButton;
+
+    @FXML
+    private void toggleMute() {
+        boolean isMuted = !MenuController.isMuted();
+
+        if (HelloApplication.getMediaPlayer() != null) {
+            HelloApplication.getMediaPlayer().setMute(isMuted);
+        }
+
+        muteButton.setText(isMuted ? "Activar" : "Silenciar");
+        MenuController.setMuted(isMuted);
+        canvas.requestFocus();
+    }
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         gc = canvas.getGraphicsContext2D();
@@ -57,7 +74,7 @@ public class GameController implements Initializable {
                 canvas.widthProperty().bind(canvas.getScene().widthProperty());
                 canvas.heightProperty().bind(canvas.getScene().heightProperty());
 
-                updateMinScale();
+                updateMinScale(); // Inicia con tamaño correcto
             }
 
             new Thread(() -> {
@@ -89,10 +106,7 @@ public class GameController implements Initializable {
                 case D -> D_PRESSED = true;
                 case F -> {
                     Stage stage = (Stage) canvas.getScene().getWindow();
-                    if (!stage.isFullScreen()) {
-                        stage.setFullScreenExitHint(""); // Evita mensaje de ESC
-                        stage.setFullScreen(true);
-                    }
+                    stage.setFullScreen(!stage.isFullScreen());
                 }
                 default -> {}
             }

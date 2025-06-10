@@ -15,7 +15,7 @@ import java.net.URL;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
-    private MediaPlayer mediaPlayer;
+    private static MediaPlayer mediaPlayer;
 
     @Override
     public void start(Stage primaryStage) throws IOException {
@@ -66,5 +66,9 @@ public class HelloApplication extends Application {
 
     public static void main(String[] args) {
         launch();
+    }
+
+    public static MediaPlayer getMediaPlayer() {
+        return mediaPlayer;
     }
 }
