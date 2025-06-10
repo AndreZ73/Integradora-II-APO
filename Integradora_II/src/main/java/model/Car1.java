@@ -74,42 +74,30 @@ public class Car1 extends Thread {
             south.add(new Image(Car1.class.getResourceAsStream(filename)));
         }
 
-        NE = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHWEST_000.png"));
-        NW = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHEAST_000.png"));
+        NW = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHWEST_000.png"));
+        NE = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHEAST_000.png"));
         SE = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_SOUTHEAST_000.png"));
+        SW = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_SOUTHWEST_000.png"));
     }
 
     @Override
     public void run() {
-        // Animación o movimiento automático
         initial();
     }
 
     public int leaveInitialPosition() {
         if(x == 176 && y == 580) {
             while(x > 58) {
-                try {
                     x--;
-                    Thread.sleep(speed);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                    sleep(1);
             }
             state = 5;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            sleep(0);
             state = 0;
             x = 51;
             while (y > 160) {
-                try {
                     y--;
-                    Thread.sleep(speed);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                    sleep(1);
             }
             return 0;
         }
@@ -128,65 +116,64 @@ public class Car1 extends Thread {
     public void autoMove(int checkpoint) {
         if(checkpoint == 0) {
             state = 4;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            sleep(0);
             state = 2;
             y = 160;
             while (x < 405) {
-                try {
-                    x++;
-                    Thread.sleep(speed);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                x++;
+                sleep(1);
             }
             state = 6;
-            try {
-                Thread.sleep(300);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            sleep(0);
             state = 1;
-            x = 412;
+            x = 408;
             autoMove(1);
         } if(checkpoint == 1) {
             while(y < 670) {
                 y++;
-                try {
-                    Thread.sleep(speed);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                sleep(1);
             }
-            int a = random.nextInt(1,3);
+            int a = random.nextInt(1,2);
             if(a == 1) {
                 while(y < 986) {
                     y++;
-                    try {
-                        Thread.sleep(speed);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    sleep(1);
                 }
+                state = 7;
+                sleep(0);
+                state = 3;
+                autoMove(3);
             } else if(a == 2) {
                 state = 6;
-                try {
-                    Thread.sleep(300);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
+                sleep(0);
                 state = 2;
                 while(x < 1006) {
                     x++;
-                    try {
-                        Thread.sleep(speed);
-                    } catch (InterruptedException e) {
-                        throw new RuntimeException(e);
-                    }
+                    sleep(1);
                 }
+            }
+        }
+        if(checkpoint == 3) {
+            while(x > 56) {
+                x--;
+                sleep(1);
+            }
+
+        }
+    }
+
+    private void sleep(int time) {
+        if (time == 1) {
+            try {
+                Thread.sleep(speed);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        } else {
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
             }
         }
     }
@@ -204,16 +191,14 @@ public class Car1 extends Thread {
         } else if(!west.isEmpty() && state == 3) {
             gc.drawImage(west.get(frame % west.size()), x, y, w, h);
             frame++;
-        } else if(NW != null && state == 4) {
-            gc.drawImage(NW, x, y, w, h);
-        }
-        else if(NE != null && state == 5) {
+        } else if(NE != null && state == 4) {
             gc.drawImage(NE, x, y, w, h);
+        } else if(NW != null && state == 5) {
+            gc.drawImage(NW, x, y, w, h);
         } else if(SE != null && state == 6) {
             gc.drawImage(SE, x, y, w, h);
+        } else if(SW != null && state == 7) {
+            gc.drawImage(SW, x, y, w, h);
         }
     }
-
-
-
 }
