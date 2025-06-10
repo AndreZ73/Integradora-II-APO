@@ -36,9 +36,7 @@ public class HelloApplication extends Application {
 
         Screen screen = Screen.getPrimary();
         Rectangle2D bounds = screen.getVisualBounds();
-
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("MenuController-view.fxml"));
-
         Scene scene = new Scene(fxmlLoader.load(), bounds.getWidth(), bounds.getHeight());
 
         scene.setOnKeyPressed(event -> {
@@ -49,7 +47,7 @@ public class HelloApplication extends Application {
 
         primaryStage.setTitle("GTA_VI");
         primaryStage.setScene(scene);
-
+        primaryStage.setFullScreenExitHint("");
         primaryStage.setFullScreen(true);
 
         Image logo = new Image(getClass().getResourceAsStream("/Logo/Logo.jpg"));
