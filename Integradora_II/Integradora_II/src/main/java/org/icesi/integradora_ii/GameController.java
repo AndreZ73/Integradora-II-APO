@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
+import javafx.scene.input.ScrollEvent; // Importar ScrollEvent
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,9 +27,9 @@ public class GameController implements Initializable {
     // Valores mayores a 1.0 (ej. 2.0) acercan la imagen (zoom in).
     // Valores menores a 1.0 (ej. 0.5) alejan la imagen (zoom out).
     private double zoomLevel = 1.0;
-    private final double MAX_ZOOM = 10.0; // ¡HE CAMBIADO ESTE VALOR PARA MUCHO MÁS ZOOM!
+    private final double MAX_ZOOM = 10.0; // Acercamiento máximo (10 veces más grande)
     private final double MIN_ZOOM = 0.3; // Mínimo alejamiento (0.3 veces más pequeño)
-    private final double ZOOM_INCREMENT = 0.1; // Cuánto cambia el zoom con cada pulsación
+    private final double ZOOM_INCREMENT = 0.1; // Cuánto cambia el zoom con cada 'tick' de la rueda
 
     private double wallpaperWidth;
     private double wallpaperHeight;
@@ -51,7 +52,7 @@ public class GameController implements Initializable {
         wallpaperWidth = wallpaper.getWidth();
         wallpaperHeight = wallpaper.getHeight();
 
-        // Es esencial para que el canvas pueda recibir eventos de teclado
+        // Es esencial para que el canvas pueda recibir eventos de teclado y ratón
         canvas.setFocusTraversable(true);
 
         initEvents(); // Inicializa los manejadores de eventos
@@ -85,7 +86,7 @@ public class GameController implements Initializable {
     }
 
     /**
-     * Configura los manejadores de eventos para el teclado.
+     * Configura los manejadores de eventos para el teclado y el ratón.
      */
     public void initEvents(){
         // Manejador de eventos para cuando una tecla es presionada
@@ -95,14 +96,8 @@ public class GameController implements Initializable {
                 case A: A_PRESSED = true; break; // Mover hacia la izquierda
                 case S: S_PRESSED = true; break; // Mover hacia abajo
                 case D: D_PRESSED = true; break; // Mover hacia la derecha
-                case ADD: // Tecla '+' del teclado numérico para acercar
-                case PLUS: // Tecla '+' de la parte superior del teclado para acercar
-                    zoomLevel = Math.min(MAX_ZOOM, zoomLevel + ZOOM_INCREMENT);
-                    break;
-                case SUBTRACT: // Tecla '-' del teclado numérico para alejar
-                case MINUS: // Tecla '-' de la parte superior del teclado para alejar
-                    zoomLevel = Math.max(MIN_ZOOM, zoomLevel - ZOOM_INCREMENT);
-                    break;
+                // Hemos quitado los casos ADD/PLUS y SUBTRACT/MINUS de aquí,
+                // ya que el zoom ahora se controla con la rueda del ratón.
                 default: break; // Ignorar otras teclas
             }
             // Asegura que el canvas siempre tenga el foco para seguir recibiendo eventos de teclado
@@ -120,6 +115,37 @@ public class GameController implements Initializable {
                 default: break; // Ignorar otras teclas
             }
             event.consume(); // Consumir el evento
+        });
+
+        // --- NUEVO: Manejador de eventos para la rueda del ratón (zoom) ---
+        canvas.setOnScroll(event -> {
+            double deltaY = event.getDeltaY(); // Obtiene la cantidad de desplazamiento de la rueda
+
+            if (deltaY > 0) {
+                // Rueda hacia arriba: Acercar (zoom in)
+                zoomLevel = Math.min(MAX_ZOOM, zoomLevel + ZOOM_INCREMENT);
+            } else if (deltaY < 0) {
+                // Rueda hacia abajo: Alejar (zoom out)
+                zoomLevel = Math.max(MIN_ZOOM, zoomLevel - ZOOM_INCREMENT);
+            }
+
+            // Opcional: Para centrar el zoom en el puntero del ratón (más avanzado)
+            // Esto ajusta la posición de la cámara para que el punto bajo el ratón
+            // permanezca en el mismo lugar de la pantalla mientras se hace zoom.
+            /*
+            double mouseX = event.getX();
+            double mouseY = event.getY();
+
+            double worldXBeforeZoom = cameraX + mouseX / zoomLevel;
+            double worldYBeforeZoom = cameraY + mouseY / zoomLevel;
+
+            // Aplica el nuevo zoom (ya actualizado arriba)
+            // Recalcula la posición de la cámara para mantener el punto bajo el ratón
+            cameraX = worldXBeforeZoom - mouseX / zoomLevel;
+            cameraY = worldYBeforeZoom - mouseY / zoomLevel;
+            */
+
+            event.consume(); // Consumir el evento de desplazamiento
         });
     }
 
@@ -149,9 +175,6 @@ public class GameController implements Initializable {
 
         // Restringe la posición de la cámara (cameraX, cameraY) para que la "ventana" visible del mundo
         // siempre se mantenga dentro de los límites del wallpaper.
-        // Math.max(0, ...) asegura que no se vaya a la izquierda o arriba de 0.
-        // Math.min(..., wallpaperWidth - visibleWorldWidth) asegura que el lado derecho o inferior
-        // de la ventana visible no exceda el borde del wallpaper.
         cameraX = Math.max(0, Math.min(cameraX, wallpaperWidth - visibleWorldWidth));
         cameraY = Math.max(0, Math.min(cameraY, wallpaperHeight - visibleWorldHeight));
 
