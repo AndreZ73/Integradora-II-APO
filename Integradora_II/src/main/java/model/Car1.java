@@ -26,6 +26,7 @@ public class Car1 extends Thread {
 
     private ArrayList<Image> north;
     private ArrayList<Image> west;
+    private ArrayList<Image> east;
     private Image NE;
     private Image NW;
 
@@ -50,7 +51,14 @@ public class Car1 extends Thread {
             west.add(new Image(Car1.class.getResourceAsStream(filename)));
         }
 
+        east = new ArrayList<>();
+        for (int i = 0; i < 11; i++) {
+            String filename = String.format("/Car1/East/POLICE_CLEAN_EAST_%03d.png", i);
+            east.add(new Image(Car1.class.getResourceAsStream(filename)));
+        }
+
         NE = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHWEST_000.png"));
+        NW = new Image(Car1.class.getResourceAsStream("/Car1/POLICE_CLEAN_NORTHEAST_000.png"));
     }
 
     @Override
@@ -59,12 +67,12 @@ public class Car1 extends Thread {
         initial();
     }
 
-    public boolean leaveInitialPosition() {
+    public int leaveInitialPosition() {
         if(x == 176 && y == 580) {
             while(x > 58) {
                 try {
                     x--;
-                    Thread.sleep(20);
+                    Thread.sleep(30);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
@@ -77,41 +85,63 @@ public class Car1 extends Thread {
             }
             state = 0;
             x = 51;
-            while (y > 465) {
+            while (y > 160) {
                 try {
                     y--;
-                    Thread.sleep(20);
+                    Thread.sleep(30);
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
             }
-            return true;
+            return 0;
         }
-        return false;
+        return -1;
     }
 
     public void initial() {
         if(x == 176 && y == 580) {
             state = 3;
-            if(leaveInitialPosition()) {
-                autoMove();
+            if(leaveInitialPosition() == 0) {
+                autoMove(0);
             }
         }
     }
 
-    public void autoMove() {
-
+    public void autoMove(int checkpoint) {
+        if(checkpoint == 0) {
+            state = 4;
+            try {
+                Thread.sleep(300);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+            state = 2;
+            y = 160;
+            while (x < 405) {
+                try {
+                    x++;
+                    Thread.sleep(30);
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
     }
 
     public void paint() {
-        // Solo dibuja si hay imágenes cargadas
         if (!north.isEmpty() && state == 0) {
             gc.drawImage(north.get(frame % north.size()), x, y, w, h);
+            frame++;
+        } else if(!east.isEmpty() && state == 2) {
+            gc.drawImage(east.get(frame % east.size()), x, y, w, h);
             frame++;
         } else if(!west.isEmpty() && state == 3) {
             gc.drawImage(west.get(frame % west.size()), x, y, w, h);
             frame++;
-        } else if(NE != null && state == 5) {
+        } else if(NW != null && state == 4) {
+            gc.drawImage(NW, x, y, w, h);
+        }
+        else if(NE != null && state == 5) {
             gc.drawImage(NE, x, y, w, h);
         }
     }
