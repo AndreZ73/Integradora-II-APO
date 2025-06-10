@@ -5,13 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f3e2bdd-00dd-42ec-9b6c-23bb00f5b9b6" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/ManualViewer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

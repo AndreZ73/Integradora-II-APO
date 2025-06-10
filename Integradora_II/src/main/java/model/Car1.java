@@ -88,16 +88,16 @@ public class Car1 extends Thread {
     public int leaveInitialPosition() {
         if(x == 176 && y == 580) {
             while(x > 58) {
-                    x--;
-                    sleep(1);
+                x--;
+                sleep(1);
             }
             state = 5;
             sleep(0);
             state = 0;
             x = 51;
             while (y > 160) {
-                    y--;
-                    sleep(1);
+                y--;
+                sleep(1);
             }
             return 0;
         }
@@ -133,7 +133,7 @@ public class Car1 extends Thread {
                 y++;
                 sleep(1);
             }
-            int a = random.nextInt(1,2);
+            int a = random.nextInt(1,3);
             if(a == 1) {
                 while(y < 986) {
                     y++;
@@ -150,7 +150,29 @@ public class Car1 extends Thread {
                 while(x < 1006) {
                     x++;
                     sleep(1);
+                    autoMove(2);
                 }
+            }
+        }
+        if(checkpoint == 2) {
+            int b = random.nextInt(1,2);
+            if(b == 1) {
+                while(x < 1064) {
+                    x++;
+                    sleep(1);
+                }
+                state = 6;
+                sleep(0);
+                state = 1;
+                x = 1070;
+                while(y < 912) {
+                    y++;
+                    sleep(1);
+                }
+                state = 6;
+                sleep(0);
+                state = 2;
+                autoMove(4);
             }
         }
         if(checkpoint == 3) {
@@ -158,7 +180,59 @@ public class Car1 extends Thread {
                 x--;
                 sleep(1);
             }
-
+            state = 5;
+            sleep(0);
+            state = 0;
+            x = 50;
+            while(y > 160) {
+                y--;
+                sleep(1);
+            }
+            autoMove(0);
+        }
+        if(checkpoint == 4) {
+            while(x < 1852) {
+                x++;
+                sleep(1);
+            }
+            state = 4;
+            sleep(0);
+            state = 0;
+            x = 1855;
+            while (y > 1) {
+                y--;
+                sleep(1);
+            }
+            state = 5;
+            sleep(0);
+            state = 3;
+            y = -5;
+            while(x > 1080) {
+                x--;
+                sleep(1);
+            }
+            state = 7;
+            sleep(0);
+            state = 1;
+            x = 1066;
+            while(y < 578) {
+                y ++;
+                sleep(1);
+            }
+            autoMove(5);
+        }
+        if(checkpoint == 5) {
+            int c = random.nextInt(2,3);
+            if(c == 2) {
+                while(y < 912) {
+                    y++;
+                    sleep(1);
+                }
+                state = 6;
+                sleep(0);
+                state = 2;
+                autoMove(4);
+            }
         }
     }
 

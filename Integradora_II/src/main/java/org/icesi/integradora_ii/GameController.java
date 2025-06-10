@@ -52,8 +52,8 @@ public class GameController implements Initializable {
         }
 
         muteButton.setText(isMuted ? "Activar" : "Silenciar");
-        MenuController.setMuted(isMuted); // Actualiza el estado en MenuController
-        canvas.requestFocus(); // Mantener el foco en el canvas para los controles del juego
+        MenuController.setMuted(isMuted);
+        canvas.requestFocus();
     }
 
     @Override
@@ -75,11 +75,10 @@ public class GameController implements Initializable {
                 canvas.widthProperty().addListener((obs, oldVal, newVal) -> updateMinScale());
                 canvas.heightProperty().addListener((obs, oldVal, newVal) -> updateMinScale());
 
-                // Asegúrate de que el canvas se ajuste al tamaño de la escena
                 canvas.widthProperty().bind(canvas.getScene().widthProperty());
                 canvas.heightProperty().bind(canvas.getScene().heightProperty());
 
-                updateMinScale(); // Inicia con tamaño correcto
+                updateMinScale();
             }
 
             muteButton.setText(MenuController.isMuted() ? "Activar" : "Silenciar");
@@ -143,20 +142,20 @@ public class GameController implements Initializable {
             double mouseMapX = cameraX + mouseX / scaleFactor;
             double mouseMapY = cameraY + mouseY / scaleFactor;
 
-            if (event.getDeltaY() > 0) { // Scroll hacia arriba (zoom in)
+            if (event.getDeltaY() > 0) {
                 scaleFactor += SCALE_STEP;
-            } else { // Scroll hacia abajo (zoom out)
+            } else {
                 scaleFactor -= SCALE_STEP;
             }
 
-            // Limitar el zoom mínimo
+
             scaleFactor = Math.max(MIN_SCALE, scaleFactor);
 
-            // Limitar el zoom máximo para que el mapa no se vea demasiado pixelado o vacío
+
             double maxScaleX = wallpaperWidth / canvas.getWidth();
             double maxScaleY = wallpaperHeight / canvas.getHeight();
             double maxScale = Math.min(maxScaleX, maxScaleY);
-            scaleFactor = Math.min(scaleFactor, maxScale * 2); // Multiplicar por 2 para permitir un poco más de zoom in
+            scaleFactor = Math.min(scaleFactor, maxScale * 2);
 
             cameraX = mouseMapX - (mouseX / scaleFactor);
             cameraY = mouseMapY - (mouseY / scaleFactor);
@@ -169,7 +168,6 @@ public class GameController implements Initializable {
     private void updateMinScale() {
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) return;
 
-        // Calcula el MIN_SCALE para que el mapa siempre cubra la pantalla
         double scaleX = canvas.getWidth() / wallpaperWidth;
         double scaleY = canvas.getHeight() / wallpaperHeight;
         MIN_SCALE = Math.max(scaleX, scaleY);
@@ -196,16 +194,14 @@ public class GameController implements Initializable {
         double visibleWidth = canvas.getWidth() / scaleFactor;
         double visibleHeight = canvas.getHeight() / scaleFactor;
 
-        // Asegurar que la cámara no se salga de los límites del wallpaper
-        // Ajuste para cuando el wallpaper es más pequeño que la vista visible
         if (wallpaperWidth <= visibleWidth) {
-            cameraX = (wallpaperWidth - visibleWidth) / 2; // Centrar
+            cameraX = (wallpaperWidth - visibleWidth) / 2;
         } else {
             cameraX = Math.max(0, Math.min(cameraX, wallpaperWidth - visibleWidth));
         }
 
         if (wallpaperHeight <= visibleHeight) {
-            cameraY = (wallpaperHeight - visibleHeight) / 2; // Centrar
+            cameraY = (wallpaperHeight - visibleHeight) / 2;
         } else {
             cameraY = Math.max(0, Math.min(cameraY, wallpaperHeight - visibleHeight));
         }
@@ -219,12 +215,10 @@ public class GameController implements Initializable {
         double sourceWidth = canvas.getWidth() / scaleFactor;
         double sourceHeight = canvas.getHeight() / scaleFactor;
 
-        // Dibuja el fondo del mapa
         gc.drawImage(wallpaper,
                 sourceX, sourceY, sourceWidth, sourceHeight,
                 0, 0, canvas.getWidth(), canvas.getHeight());
 
-        // Pinta el carro ajustando por la cámara y el zoom
         gc.save();
         gc.scale(scaleFactor, scaleFactor);
         gc.translate(-cameraX, -cameraY);

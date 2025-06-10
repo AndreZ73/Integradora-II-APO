@@ -15,10 +15,7 @@ public class MenuController {
 
     @FXML
     private Button muteButton;
-    // Hacemos isMuted estático para que GameController pueda acceder a su estado
     private static boolean isMuted = false;
-
-    // Métodos para el FXML:
 
     @FXML
     public void EnterGame(ActionEvent event) {
@@ -29,9 +26,6 @@ public class MenuController {
             Stage currentStage = (Stage) ((Button) event.getSource()).getScene().getWindow();
             currentStage.setScene(gameScene);
             currentStage.setTitle("SGMMS - Game");
-            // No se pone en pantalla completa aquí para que GameController lo gestione si es necesario
-            // currentStage.setFullScreen(true); // Esta línea ya no es necesaria aquí
-            // currentStage.setFullScreenExitHint(""); // Esta línea ya no es necesaria aquí
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -41,7 +35,6 @@ public class MenuController {
 
     @FXML
     public void showManual(ActionEvent event) {
-        // Llama al método correcto en ManualViewer
         ManualViewer.toggleManualVisibility();
     }
 
@@ -54,7 +47,6 @@ public class MenuController {
         }
     }
 
-    // Métodos estáticos para acceder al estado de mute desde otras clases
     public static boolean isMuted() {
         return isMuted;
     }
