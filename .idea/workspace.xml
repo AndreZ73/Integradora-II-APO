@@ -5,8 +5,13 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4f3e2bdd-00dd-42ec-9b6c-23bb00f5b9b6" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/ManualViewer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,35 +28,47 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;JacoboRodriguez1&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/AndreZ73/Integradora-II-APO.git&quot;,
+    &quot;accountId&quot;: &quot;95aec669-9e57-4200-9127-88e0db7d5af1&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2yIsG3F3EC2AR271zqCbm3k5FaO" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.HelloApplication.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/Andre/Downloads/Integradora-II-APO",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.HelloApplication.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/Andre/Downloads/Integradora-II-APO&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.24978.46" />
-        <option value="bundled-js-predefined-d6986cc7102b-76f8388c3a79-JavaScript-IU-243.24978.46" />
+        <option value="bundled-jdk-9823dce3aa75-125ca727e0f0-intellij.indexing.shared.core-IU-243.23654.189" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-IU-243.23654.189" />
       </set>
     </attachedChunks>
   </component>
@@ -64,6 +81,8 @@
       <option name="presentableId" value="Default" />
       <updated>1749533322610</updated>
       <workItem from="1749533323657" duration="13709000" />
+      <workItem from="1749574553190" duration="3746000" />
+      <workItem from="1749578345182" duration="1528000" />
     </task>
     <servers />
   </component>

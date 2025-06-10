@@ -2,7 +2,9 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
 <BorderPane xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
@@ -10,11 +12,20 @@
     <center>
         <StackPane>
             <children>
-                <Button mnemonicParsing="false" onAction="#EnterGame" prefHeight="67.0" prefWidth="115.0" text="PLAY" textAlignment="CENTER">
-                    <font>
-                        <Font name="Impact" size="31.0"/>
-                    </font>
-                </Button>
+                <VBox alignment="CENTER" spacing="20">
+                    <children>
+                        <Button mnemonicParsing="false" onAction="#EnterGame" prefHeight="67.0" prefWidth="115.0" text="PLAY" textAlignment="CENTER">
+                            <font>
+                                <Font name="Impact" size="31.0"/>
+                            </font>
+                        </Button>
+                        <Button fx:id="manualButton" mnemonicParsing="false" onAction="#showManual" prefHeight="67.0" prefWidth="150.0" text="How to Play" textAlignment="CENTER">
+                            <font>
+                                <Font name="Impact" size="24.0"/>
+                            </font>
+                        </Button>
+                    </children>
+                </VBox>
             </children>
         </StackPane>
     </center>
@@ -22,7 +33,11 @@
     <top>
         <StackPane alignment="TOP_RIGHT">
             <children>
-                <Button fx:id="muteButton" text="Silenciar" prefWidth="100" prefHeight="50" onAction="#toggleMute"/>
+                <HBox alignment="TOP_RIGHT" spacing="10">
+                    <children>
+                        <Button fx:id="muteButton" text="Silenciar" prefWidth="100" prefHeight="50" onAction="#toggleMute"/>
+                    </children>
+                </HBox>
             </children>
         </StackPane>
     </top>

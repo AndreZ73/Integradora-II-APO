@@ -10,8 +10,8 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.input.KeyCode;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import java.net.URL;
 
+import java.net.URL;
 import java.io.IOException;
 
 public class HelloApplication extends Application {
@@ -27,7 +27,7 @@ public class HelloApplication extends Application {
             mediaPlayer.setVolume(0.2);
             mediaPlayer.play();
         } else {
-            System.err.println("Music file not found: /music/game_theme.mp3. Make sure it's in src/main/resources/music/");
+            System.err.println("Music file not found: /BackgroundMusic/music.mp3. Make sure it's in src/main/resources/BackgroundMusic/");
         }
 
         Screen screen = Screen.getPrimary();
@@ -47,7 +47,11 @@ public class HelloApplication extends Application {
         primaryStage.setFullScreen(true);
 
         Image logo = new Image(getClass().getResourceAsStream("/Logo/Logo.jpg"));
-        primaryStage.getIcons().add(logo);
+        if (!logo.isError()) {
+            primaryStage.getIcons().add(logo);
+        } else {
+            System.err.println("Error loading logo: /Logo/Logo.jpg. Make sure it's in src/main/resources/Logo/ and is a valid image.");
+        }
 
         primaryStage.show();
     }
@@ -66,5 +70,9 @@ public class HelloApplication extends Application {
 
     public static MediaPlayer getMediaPlayer() {
         return mediaPlayer;
+    }
+
+    public static void toggleManualVisibility() {
+        ManualViewer.toggleManualVisibility();
     }
 }

@@ -1,24 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.layout.StackPane?>
-
-<StackPane xmlns="http://javafx.com/javafx/23.0.1"
-           xmlns:fx="http://javafx.com/fxml/1"
-           fx:controller="org.icesi.integradora_ii.GameController">
+<?import javafx.scene.layout.HBox?> <AnchorPane prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.icesi.integradora_ii.GameController">
     <children>
-        <!-- Canvas principal del juego -->
-        <Canvas fx:id="canvas" />
+        <Canvas fx:id="canvas" height="720.0" width="1280.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
 
-        <!-- Botón para silenciar -->
-        <Button fx:id="muteButton"
-                text="Silenciar"
-                prefWidth="100"
-                prefHeight="50"
-                onAction="#toggleMute"
-                StackPane.alignment="TOP_RIGHT">
-        </Button>
+        <HBox alignment="TOP_RIGHT" spacing="10" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+            <children>
+                <Button fx:id="muteButton" mnemonicParsing="false" onAction="#toggleMute" text="Silenciar" />
+            </children>
+        </HBox>
     </children>
-</StackPane>
+</AnchorPane>
