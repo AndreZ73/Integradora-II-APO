@@ -23,13 +23,9 @@ public class HelloApplication extends Application {
         if (musicUrl != null) {
             Media media = new Media(musicUrl.toExternalForm());
             mediaPlayer = new MediaPlayer(media);
-
             mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-
-            mediaPlayer.setVolume(0.5);
-
+            mediaPlayer.setVolume(0.2);
             mediaPlayer.play();
-            System.out.println("Playing music: " + musicUrl.toExternalForm());
         } else {
             System.err.println("Music file not found: /music/game_theme.mp3. Make sure it's in src/main/resources/music/");
         }
