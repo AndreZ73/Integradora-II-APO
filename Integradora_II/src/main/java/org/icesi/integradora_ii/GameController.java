@@ -7,9 +7,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView; // Importar ImageView
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
-import model.Car1; // Asegúrate de que esta ruta a tu clase Car1 es correcta
+import model.Car1;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -40,20 +41,35 @@ public class GameController implements Initializable {
     private Car1 car1;
 
     @FXML
-    private Button muteButton;
+    private Button muteButton; // Este botón debe estar en tu FXML con fx:id="muteButton"
+
+    // YA NO NECESITAMOS @FXML para gameMuteIcon, porque lo crearemos en Java
+    private ImageView gameMuteIcon; // Eliminamos @FXML y lo hacemos privado sin inyección
+
+    @FXML
+    private Button gameManualButton; // Si tienes este botón en tu FXML
+
+    // Rutas a las imágenes de los iconos de mute/unmute.
+    // **CRÍTICO: ASEGÚRATE de que estas rutas son EXACTAS y que los archivos existen en src/main/resources/Icons/**
+    private final String UNMUTE_ICON_PATH = "/Icons/unmute_icon.png"; // Icono para sonido activado
+    private final String MUTE_ICON_PATH = "/Icons/mute_icon.png";     // Icono para sonido desactivado
 
 
     @FXML
     private void toggleMute() {
         boolean isMuted = !MenuController.isMuted();
-
         if (HelloApplication.getMediaPlayer() != null) {
             HelloApplication.getMediaPlayer().setMute(isMuted);
         }
+        MenuController.setMuted(isMuted); // Actualiza el estado global en MenuController
+        updateGameMuteIcon(); // Llama para actualizar la imagen del icono
+        canvas.requestFocus(); // Mantiene el foco en el canvas
+    }
 
-        muteButton.setText(isMuted ? "Activar" : "Silenciar");
-        MenuController.setMuted(isMuted); // Actualiza el estado en MenuController
-        canvas.requestFocus(); // Mantener el foco en el canvas para los controles del juego
+    @FXML
+    private void showGameManual() {
+        ManualViewer.toggleManualVisibility();
+        canvas.requestFocus();
     }
 
     @Override
@@ -72,17 +88,40 @@ public class GameController implements Initializable {
 
         Platform.runLater(() -> {
             if (canvas.getScene() != null) {
+                Stage stage = (Stage) canvas.getScene().getWindow();
+                if (!stage.isFullScreen()) {
+                    stage.setFullScreen(true);
+                }
+
                 canvas.widthProperty().addListener((obs, oldVal, newVal) -> updateMinScale());
                 canvas.heightProperty().addListener((obs, oldVal, newVal) -> updateMinScale());
 
-                // Asegúrate de que el canvas se ajuste al tamaño de la escena
                 canvas.widthProperty().bind(canvas.getScene().widthProperty());
                 canvas.heightProperty().bind(canvas.getScene().heightProperty());
 
-                updateMinScale(); // Inicia con tamaño correcto
+                updateMinScale();
             }
 
-            muteButton.setText(MenuController.isMuted() ? "Activar" : "Silenciar");
+            // --- CÓDIGO NUEVO PARA EL BOTÓN DE MUTE SIN TOCAR EL FXML ---
+            // Creamos el ImageView dinámicamente
+            gameMuteIcon = new ImageView();
+            gameMuteIcon.setFitHeight(26.0); // Ajusta estas dimensiones si tu icono es diferente
+            gameMuteIcon.setFitWidth(33.0);  // Ajusta estas dimensiones si tu icono es diferente
+            gameMuteIcon.setPickOnBounds(true);
+            gameMuteIcon.setPreserveRatio(true);
+
+            // Asignamos el ImageView al botón de mute que sí se inyecta desde el FXML
+            if (muteButton != null) {
+                muteButton.setGraphic(gameMuteIcon);
+                // Si quieres que el botón sea transparente como antes, también puedes forzar el estilo aquí
+                muteButton.setStyle("-fx-background-color: transparent;");
+            } else {
+                System.err.println("Error: muteButton no fue inyectado. Asegúrate de que tu GameController-view.fxml tiene un Button con fx:id=\"muteButton\".");
+            }
+            // -----------------------------------------------------------
+
+            // Establece la imagen correcta del icono de mute al inicio del juego.
+            updateGameMuteIcon();
 
 
             new Thread(() -> {
@@ -104,6 +143,22 @@ public class GameController implements Initializable {
 
         car1 = new Car1(canvas, 176, 580, 50, 50);
         car1.start();
+    }
+
+    // Método para actualizar la imagen del icono de mute en el juego
+    private void updateGameMuteIcon() {
+        // Solo intenta cambiar la imagen si gameMuteIcon fue creado
+        if (gameMuteIcon != null) {
+            String iconPath = MenuController.isMuted() ? MUTE_ICON_PATH : UNMUTE_ICON_PATH;
+            URL iconUrl = getClass().getResource(iconPath);
+
+            if (iconUrl != null) {
+                Image iconImage = new Image(iconUrl.toExternalForm());
+                gameMuteIcon.setImage(iconImage); // Establece la imagen en el ImageView creado dinámicamente
+            } else {
+                System.err.println("Error: Icono de mute del juego no encontrado en " + iconPath + ". Revisa la ruta y la extensión.");
+            }
+        }
     }
 
     public void initEvents() {
@@ -133,7 +188,7 @@ public class GameController implements Initializable {
                 case D -> D_PRESSED = false;
                 default -> {}
             }
-            event.consume(); // Consumir el evento
+            event.consume();
         });
 
         canvas.setOnScroll((ScrollEvent event) -> {
@@ -143,20 +198,18 @@ public class GameController implements Initializable {
             double mouseMapX = cameraX + mouseX / scaleFactor;
             double mouseMapY = cameraY + mouseY / scaleFactor;
 
-            if (event.getDeltaY() > 0) { // Scroll hacia arriba (zoom in)
+            if (event.getDeltaY() > 0) {
                 scaleFactor += SCALE_STEP;
-            } else { // Scroll hacia abajo (zoom out)
+            } else {
                 scaleFactor -= SCALE_STEP;
             }
 
-            // Limitar el zoom mínimo
             scaleFactor = Math.max(MIN_SCALE, scaleFactor);
 
-            // Limitar el zoom máximo para que el mapa no se vea demasiado pixelado o vacío
             double maxScaleX = wallpaperWidth / canvas.getWidth();
             double maxScaleY = wallpaperHeight / canvas.getHeight();
             double maxScale = Math.min(maxScaleX, maxScaleY);
-            scaleFactor = Math.min(scaleFactor, maxScale * 2); // Multiplicar por 2 para permitir un poco más de zoom in
+            scaleFactor = Math.min(scaleFactor, maxScale * 2);
 
             cameraX = mouseMapX - (mouseX / scaleFactor);
             cameraY = mouseMapY - (mouseY / scaleFactor);
@@ -169,9 +222,8 @@ public class GameController implements Initializable {
     private void updateMinScale() {
         if (canvas.getWidth() == 0 || canvas.getHeight() == 0) return;
 
-        // Calcula el MIN_SCALE para que el mapa siempre cubra la pantalla
         double scaleX = canvas.getWidth() / wallpaperWidth;
-        double scaleY = canvas.getHeight() / wallpaperHeight;
+        double scaleY = canvas.getHeight() / wallpaperHeight; // Corregido: Removed redundant division
         MIN_SCALE = Math.max(scaleX, scaleY);
 
         if (scaleFactor < MIN_SCALE) {
@@ -196,16 +248,14 @@ public class GameController implements Initializable {
         double visibleWidth = canvas.getWidth() / scaleFactor;
         double visibleHeight = canvas.getHeight() / scaleFactor;
 
-        // Asegurar que la cámara no se salga de los límites del wallpaper
-        // Ajuste para cuando el wallpaper es más pequeño que la vista visible
         if (wallpaperWidth <= visibleWidth) {
-            cameraX = (wallpaperWidth - visibleWidth) / 2; // Centrar
+            cameraX = (wallpaperWidth - visibleWidth) / 2;
         } else {
             cameraX = Math.max(0, Math.min(cameraX, wallpaperWidth - visibleWidth));
         }
 
         if (wallpaperHeight <= visibleHeight) {
-            cameraY = (wallpaperHeight - visibleHeight) / 2; // Centrar
+            cameraY = (wallpaperHeight - visibleHeight) / 2;
         } else {
             cameraY = Math.max(0, Math.min(cameraY, wallpaperHeight - visibleHeight));
         }
@@ -219,12 +269,10 @@ public class GameController implements Initializable {
         double sourceWidth = canvas.getWidth() / scaleFactor;
         double sourceHeight = canvas.getHeight() / scaleFactor;
 
-        // Dibuja el fondo del mapa
         gc.drawImage(wallpaper,
                 sourceX, sourceY, sourceWidth, sourceHeight,
                 0, 0, canvas.getWidth(), canvas.getHeight());
 
-        // Pinta el carro ajustando por la cámara y el zoom
         gc.save();
         gc.scale(scaleFactor, scaleFactor);
         gc.translate(-cameraX, -cameraY);

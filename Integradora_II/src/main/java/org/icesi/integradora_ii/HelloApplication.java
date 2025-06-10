@@ -14,7 +14,7 @@ import javafx.scene.media.MediaPlayer;
 import java.net.URL;
 import java.io.IOException;
 
-public class HelloApplication extends Application {
+public class    HelloApplication extends Application {
     private static MediaPlayer mediaPlayer;
 
     @Override
