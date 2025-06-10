@@ -57,7 +57,7 @@ public class GameController implements Initializable {
                 canvas.widthProperty().bind(canvas.getScene().widthProperty());
                 canvas.heightProperty().bind(canvas.getScene().heightProperty());
 
-                updateMinScale(); // Inicia con tamaño correcto
+                updateMinScale();
             }
 
             new Thread(() -> {
@@ -89,7 +89,10 @@ public class GameController implements Initializable {
                 case D -> D_PRESSED = true;
                 case F -> {
                     Stage stage = (Stage) canvas.getScene().getWindow();
-                    stage.setFullScreen(!stage.isFullScreen());
+                    if (!stage.isFullScreen()) {
+                        stage.setFullScreenExitHint(""); // Evita mensaje de ESC
+                        stage.setFullScreen(true);
+                    }
                 }
                 default -> {}
             }
