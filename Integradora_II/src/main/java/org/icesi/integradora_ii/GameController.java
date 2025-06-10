@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.ScrollEvent;
 import javafx.stage.Stage;
+import model.Car1;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,6 +36,8 @@ public class GameController implements Initializable {
     private double scaleFactor = 1.0;
     private final double SCALE_STEP = 0.1;
     private double MIN_SCALE = 0.5;
+
+    private Car1 car1;
 
     @FXML
     private Button muteButton;
@@ -93,6 +96,9 @@ public class GameController implements Initializable {
                 }
             }).start();
         });
+
+        car1 = new Car1(canvas, 176, 580, 50, 50);
+        car1.start();
     }
 
     public void initEvents() {
@@ -206,5 +212,12 @@ public class GameController implements Initializable {
         gc.drawImage(wallpaper,
                 sourceX, sourceY, sourceWidth, sourceHeight,
                 0, 0, canvas.getWidth(), canvas.getHeight());
+
+        // Pinta el carro ajustando por la cámara y el zoom
+        gc.save();
+        gc.scale(scaleFactor, scaleFactor);
+        gc.translate(-cameraX, -cameraY);
+        car1.paint();
+        gc.restore();
     }
 }

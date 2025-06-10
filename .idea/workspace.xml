@@ -6,16 +6,23 @@
   <component name="ChangeListManager">
     <list default="true" id="4f3e2bdd-00dd-42ec-9b6c-23bb00f5b9b6" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/model/Car1.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/module-info.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/GameController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/HelloApplication.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/java/org/icesi/integradora_ii/MenuController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/GameController-view.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/Integradora_II/src/main/resources/org/icesi/integradora_ii/MenuController-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/truck1/run/truck1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Integradora_II/src/main/resources/truck1/run/truck1_right.png" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -60,7 +67,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1749533322610</updated>
-      <workItem from="1749533323657" duration="1577000" />
+      <workItem from="1749533323657" duration="6797000" />
     </task>
     <servers />
   </component>
